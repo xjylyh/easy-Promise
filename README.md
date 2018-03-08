@@ -1,2 +1,2 @@
-#Promise学习
+# Promise学习
 学习了promise的原理和简单实现
