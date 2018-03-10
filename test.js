@@ -16,5 +16,5 @@ function deepClone(parent,c){
 let p = {name:'aaa',age:'22',if:{a:1,b:2},arr:[3,4,5,6,7,8,9]}
 let newp = deepClone(p);
 console.log(newp);
-p.name = 'xjy';
+p.name = 'xjy'; 
 console.log(newp);
