@@ -13,7 +13,7 @@ function _createClass(con,protoProperty,staticProperty){
     if(staticProperty){
         defineProperties(con,staticProperty);
     }
-}
+} 
 
 
 var Parent = function(){
