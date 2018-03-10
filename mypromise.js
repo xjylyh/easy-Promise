@@ -65,5 +65,5 @@ Promise.prototype.then = function(success,err){
         })
     }
 }
-
+ 
 module.exports = Promise;
