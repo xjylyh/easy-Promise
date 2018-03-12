@@ -36,3 +36,14 @@ p.then(function(data){
 },function(err){
     console.log(err);
 })
+
+
+let p = new Promise(function(resolve,reject){
+    resolve(100);
+})
+
+p.then(function(data){
+    console.log(data);
+},function(err){
+    console.log(err);
+})
