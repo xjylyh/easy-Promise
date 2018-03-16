@@ -1,5 +1,15 @@
+let Promise = require('./PromiseTest');
 let fs = require('fs');
+let x = new Promise(function(resolve,reject){
+    resolve(fs.readFileSync('./test.txt','utf8'));
+})
+let y = new Promise(function(resolve,reject){
+    resolve(fs.readFileSync('./test1.txt','utf8'));
+}) 
 
+Promise.all([x,y]).then(function(result){
+    console.log(result);
+})
 
 //promise 是一个类  
 
@@ -47,3 +57,5 @@ p.then(function(data){
 },function(err){
     console.log(err);
 })
+
+

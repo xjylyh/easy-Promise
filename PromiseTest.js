@@ -89,6 +89,49 @@ Promise.prototype.then = function(onfulfilled,onrejected){
         return Promise2;
     }
 }
+
+Promise.prototype.catch = function(cb){
+    return this.then(null,cb)
+}
+
+//返回一个成功的Promise
+Promise.resolve = function(value){
+    return new Promise(function(resolve,reject){
+        resolve(value);
+    })
+}
+//返回一个失败的Promise
+Promise.reject = function(reason){
+    return new Promise(function(resolve,reject){
+        reject(reason);
+    })
+}
+
+Promise.all = function(promises){
+    if(!Array.isArray(promises)){//我们这里做了小小的限制，使得Promise.all方法的参数必须是数组
+        throw new TypeError('The parameters of the Promise method must be an Array')
+    }
+    return new Promise(function(resolve,reject){
+        try{//try-catch还是为了捕捉我们程序中出现的错误
+            let arr = [];//我们将要返回的处理结果数组
+            let count = 0;//记录我们成功的次数
+            function processData(index,y){
+                arr[index] = y;//我们把数组对应的项中放入我们Promise的执行结果。
+                if(++count===promises.length){//这里使用我们之前的count进行判断，看看Promise数组是否被执行完了
+                    resolve(arr);//如果执行完毕后我们就可以把返回的Promise置为成功态，并且返回处理结果数组
+                }
+            }
+            for(let i=0;i<promises.length;i++){//我们去遍历存放有Promise的数组
+                promises[i].then(function(y){//我们去执行这些个Promise，调用它的then方法执行
+                    processData(i,y);//把执行结果y和对应项的index放入到我们的处理函数中
+                },reject);
+            }
+        }catch(e){
+            reject(e);
+        }
+    })
+}
+
 //参数1：我们需要返回的Promise2 参数2：then方法的返回值 参数三：Promise2中的resolve 参数四：Promise2中的reject
 function resolvePromise(Promise2,x,resolve,reject){
     if(Promise2===x){//规范中说道，这两个东西指向不能相同
