@@ -132,6 +132,14 @@ Promise.all = function(promises){
     })
 }
 
+Promise.race = function(promises){
+    return new Promise(function(resolve,reject){
+        for(let i=0;i<promises.length;i++){
+            promises[i].then(resolve,reject);
+        }
+    })
+}
+
 //参数1：我们需要返回的Promise2 参数2：then方法的返回值 参数三：Promise2中的resolve 参数四：Promise2中的reject
 function resolvePromise(Promise2,x,resolve,reject){
     if(Promise2===x){//规范中说道，这两个东西指向不能相同

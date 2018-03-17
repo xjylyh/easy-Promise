@@ -7,7 +7,7 @@ let y = new Promise(function(resolve,reject){
     resolve(fs.readFileSync('./test1.txt','utf8'));
 }) 
 
-Promise.all([x,y]).then(function(result){
+Promise.race([y,x]).then(function(result){
     console.log(result);
 })
 
